@@ -1,4 +1,4 @@
-// Private/GameFrameworkClassTable/AwakenPlayerState.cpp
+﻿// Private/GameFrameworkClassTable/AwakenPlayerState.cpp
 #include "GameFrameworkClassTable/AwakenPlayerState.h"
 #include "GameFrameworkClassTable/AwakenPlayerController.h"
 #include "StatsFramework/AS_CoreVitals.h"
@@ -13,12 +13,15 @@
 #include "DialogueFramework/02Tags/T_DialogueFramework.h"
 #include "Abilities/GameplayAbility.h"
 #include "SurvivalTickFramework/SurvivalMeterComponent.h"
-#include "EquipmentFramework/EquipmentComponent.h"
+#include "EquipmentFramework/UEquipmentComponent.h"
 #include "SessionHandshakeFramework/PlayerIdentityComponent.h"
 #include "TimeFramework/TimeSubsystem.h"
 #include "ProgressionFramework/ProgressionComponent.h"
 #include "ProgressionFramework/01Structs/S_ProgressionFramework.h"
 #include "ProgressionFramework/02Tags/T_ProgressionFramework.h"
+#include "ItemInventoryFramework/UContainerViewComponent.h"
+#include "ItemInventoryFramework/UInventoryRequestComponent.h"
+#include "ItemInventoryFramework/UPlayerInventoryComponent.h"
 #include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
@@ -31,6 +34,9 @@ AAwakenPlayerState::AAwakenPlayerState(){
     survivalMeters = CreateDefaultSubobject<USurvivalMeterComponent>(TEXT("SurvivalMeters"));
     equipment = CreateDefaultSubobject<UEquipmentComponent>(TEXT("Equipment"));
     playerIdentity = CreateDefaultSubobject<UPlayerIdentityComponent>(TEXT("IdentityComponent"));
+    inventory = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("Inventory"));
+    inventoryRequests = CreateDefaultSubobject<UInventoryRequestComponent>(TEXT("InventoryRequests"));
+    containerView = CreateDefaultSubobject<UContainerViewComponent>(TEXT("ContainerView"));
     SetNetUpdateFrequency(100.0f);
 }
 

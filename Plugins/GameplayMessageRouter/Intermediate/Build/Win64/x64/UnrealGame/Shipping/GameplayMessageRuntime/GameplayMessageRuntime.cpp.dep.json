@@ -1,0 +1,13 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\silver soul\\documents\\unreal projects\\theawaken\\plugins\\gameplaymessagerouter\\source\\gameplaymessageruntime\\private\\gameframework\\gameplaymessageruntime.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\silver soul\\documents\\unreal projects\\theawaken\\intermediate\\build\\win64\\x64\\theawaken\\shipping\\engine\\sharedpch.engine.project.valapi.valexpapi.cpp20.inclorderunreal5_6.h.pch",
+        "Includes": [
+            "c:\\users\\silver soul\\documents\\unreal projects\\theawaken\\plugins\\gameplaymessagerouter\\intermediate\\build\\win64\\x64\\unrealgame\\shipping\\gameplaymessageruntime\\definitions.gameplaymessageruntime.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

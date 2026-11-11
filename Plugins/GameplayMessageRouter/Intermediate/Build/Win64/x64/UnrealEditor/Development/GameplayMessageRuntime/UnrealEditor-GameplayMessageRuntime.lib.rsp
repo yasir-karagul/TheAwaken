@@ -1,0 +1,15 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/experimental:deterministic
+/DEF
+/NAME:"UnrealEditor-GameplayMessageRuntime.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:/Unreal Projects/TheAwaken/Intermediate/Build/Win64/x64/TheAwakenEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h.obj"
+"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageRuntime/Module.GameplayMessageRuntime.cpp.obj"
+"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageRuntime/AsyncAction_ListenForGameplayMessage.cpp.obj"
+"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageRuntime/GameplayMessageRuntime.cpp.obj"
+"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageRuntime/GameplayMessageSubsystem.cpp.obj"
+/OUT:"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageRuntime/UnrealEditor-GameplayMessageRuntime.lib"

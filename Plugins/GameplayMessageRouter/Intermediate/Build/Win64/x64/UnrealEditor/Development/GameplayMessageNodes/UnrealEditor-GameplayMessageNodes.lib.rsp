@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/experimental:deterministic
+/DEF
+/NAME:"UnrealEditor-GameplayMessageNodes.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:/Unreal Projects/TheAwaken/Intermediate/Build/Win64/x64/TheAwakenEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h.obj"
+"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageNodes/Module.GameplayMessageNodes.cpp.obj"
+"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageNodes/GameplayMessageNodesModule.cpp.obj"
+"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageNodes/K2Node_AsyncAction_ListenForGameplayMessages.cpp.obj"
+/OUT:"C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageNodes/UnrealEditor-GameplayMessageNodes.lib"
