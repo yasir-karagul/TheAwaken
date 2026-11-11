@@ -4,7 +4,10 @@
 #include "AbilityActionFramework/02Tags/T_AbilityActionFramework.h"
 #include "CarryEncumbranceFramework/02Tags/T_CarryEncumbranceFramework.h"
 #include "DialogueFramework/02Tags/T_DialogueFramework.h"
-#include "ItemInventoryFramework/HeldItemComponent.h"
+#include "ItemInventoryFramework/UBFL_Inventory.h"
+#include "ItemInventoryFramework/UHeldItemComponent.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/PlayerState.h"
 
 UGA_Reload::UGA_Reload(){
     SetAssetTags(FGameplayTagContainer(T_Action_Reload));
@@ -33,10 +36,12 @@ void UGA_Reload::onReloadFinished(){
     if(!HasAuthority(&CurrentActivationInfo)){
         return;
     }
-    AActor* avatar = GetAvatarActorFromActorInfo();
-    UHeldItemComponent* held = avatar != nullptr ? avatar->FindComponentByClass<UHeldItemComponent>() : nullptr;
-    if(held != nullptr){
-        held->applyReload(avatar, held->getHeldItem());
+    // Doc R01 (guide S6.7): ApplyReload on normal completion only, with the instance that is in the hand.
+    const APawn* avatar = Cast<APawn>(GetAvatarActorFromActorInfo());
+    APlayerState* player = avatar != nullptr ? avatar->GetPlayerState() : nullptr;
+    const UHeldItemComponent* held = avatar != nullptr ? avatar->FindComponentByClass<UHeldItemComponent>() : nullptr;
+    if(player != nullptr && held != nullptr){
+        UBFL_Inventory::applyReload(player, held->getHeldState().instanceId);
     }
     endOnAuthority();
 }

@@ -16,6 +16,7 @@ public class TheAwaken : ModuleRules
 			"GameplayTags", "DeveloperSettings",
 			"Json", "JsonUtilities",
 			"GameplayMessageRuntime",
+			"NetCore",      // FFastArraySerializer: the inventory mirror (Doc R01 guide S0.2)
 			"PhysicsCore"   // UPhysicalMaterial (DA_GroundTypeMap bake and property)
 		});
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

@@ -1,0 +1,14 @@
+"C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Source/GameplayMessageRuntime/Private/GameFramework/AsyncAction_ListenForGameplayMessage.cpp"
+@"C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealGame/Shipping/GameplayMessageRuntime/GameplayMessageRuntime.Shared.rsp"
+/FI"C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Intermediate/Build/Win64/x64/TheAwaken/Shipping/Engine/SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h"
+/FI"C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealGame/Shipping/GameplayMessageRuntime/Definitions.GameplayMessageRuntime.h"
+/Yu"C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Intermediate/Build/Win64/x64/TheAwaken/Shipping/Engine/SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h"
+/Fp"C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Intermediate/Build/Win64/x64/TheAwaken/Shipping/Engine/SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h.pch"
+/Fo"C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealGame/Shipping/GameplayMessageRuntime/AsyncAction_ListenForGameplayMessage.cpp.obj"
+/experimental:log "C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealGame/Shipping/GameplayMessageRuntime/AsyncAction_ListenForGameplayMessage.cpp.sarif"
+/sourceDependencies "C:/Users/Silver Soul/Documents/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealGame/Shipping/GameplayMessageRuntime/AsyncAction_ListenForGameplayMessage.cpp.dep.json"
+/nologo
+/TP
+/GR-
+/std:c++20
+/wd5054

@@ -14,6 +14,9 @@ class UAbilitySystemComponent;
 class UAS_CoreVitals;
 class USurvivalMeterComponent;
 class UEquipmentComponent;
+class UPlayerInventoryComponent;
+class UInventoryRequestComponent;
+class UContainerViewComponent;
 class UPlayerIdentityComponent;
 class UGameplayAbility;
 class UVitalsRegenComponent;
@@ -99,6 +102,16 @@ private:
 
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<UEquipmentComponent> equipment;
+
+    // Doc R01 (guide S4, S12 handoff to B19): the bag, hotbar and hold slots; the request door; the open-container view.
+    UPROPERTY(VisibleAnywhere)
+    TObjectPtr<UPlayerInventoryComponent> inventory;
+
+    UPROPERTY(VisibleAnywhere)
+    TObjectPtr<UInventoryRequestComponent> inventoryRequests;
+
+    UPROPERTY(VisibleAnywhere)
+    TObjectPtr<UContainerViewComponent> containerView;
 
     // Doc B05 step 7: the platform identity (primary id) is written once by the handshake. It is the key of the Character save, not saved itself.
     UPROPERTY(VisibleAnywhere)

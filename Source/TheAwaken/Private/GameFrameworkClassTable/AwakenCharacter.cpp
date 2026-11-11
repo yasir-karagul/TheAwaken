@@ -2,7 +2,7 @@
 #include "GameFrameworkClassTable/AwakenCharacter.h"
 #include "GameFrameworkClassTable/AwakenMovementComponent.h"
 #include "GameFrameworkClassTable/AwakenPlayerState.h"
-#include "ItemInventoryFramework/HeldItemComponent.h"
+#include "ItemInventoryFramework/UHeldItemComponent.h"
 #include "CombatFramework/CombatComponent.h"
 #include "CarryEncumbranceFramework/CarryComponent.h"
 #include "CraftingFramework/CraftingComponent.h"
