@@ -1,0 +1,21 @@
+#include "AbilityActionFramework/02Tags/T_AbilityActionFramework.h"
+
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Dodge, "Action.Dodge");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Sprint, "Action.Sprint");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_WeaponCharge, "Action.WeaponCharge");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Crouch, "Action.Crouch");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Block, "Action.Block");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Reload, "Action.Reload");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Started, "Action.Started");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Ended, "Action.Ended");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_State, "Action.State");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_State_DodgeInvulnerable, "Action.State.DodgeInvulnerable");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_State_SprintExhausted, "Action.State.SprintExhausted");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Cooldown, "Action.Cooldown");
+UE_DEFINE_GAMEPLAY_TAG(T_Action_Cooldown_Dodge, "Action.Cooldown.Dodge");
+UE_DEFINE_GAMEPLAY_TAG(T_Player_State_Incapacitated, "Player.State.Incapacitated");
+UE_DEFINE_GAMEPLAY_TAG(T_Effect_Saved, "Effect.Saved");
+UE_DEFINE_GAMEPLAY_TAG(T_GameplayCue_Action_Dodge, "GameplayCue.Action.Dodge");
+UE_DEFINE_GAMEPLAY_TAG(T_GameplayCue_Action_Block, "GameplayCue.Action.Block");
+UE_DEFINE_GAMEPLAY_TAG(T_GameplayCue_Action_WeaponCharge, "GameplayCue.Action.WeaponCharge");
+UE_DEFINE_GAMEPLAY_TAG(T_GameplayCue_Action_Reload, "GameplayCue.Action.Reload");

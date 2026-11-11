@@ -1,0 +1,1 @@
+// Intentionally empty. FD_SaveEvent is declared in SaveFramework/SaveSubsystem.h (UHT cannot see a delegate in a header with no UCLASS or USTRUCT).

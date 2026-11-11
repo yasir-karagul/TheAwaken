@@ -1,0 +1,23 @@
+#include "TimeFramework/02Tags/T_TimeFramework.h"
+
+UE_DEFINE_GAMEPLAY_TAG(T_Time_HourChanged, "Time.HourChanged");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_PhaseChanged, "Time.PhaseChanged");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_DayPassed, "Time.DayPassed");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_SeasonChanged, "Time.SeasonChanged");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_SleepWaitingForGroup, "Time.SleepWaitingForGroup");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_SkipAnnounced, "Time.SkipAnnounced");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_SkipStarted, "Time.SkipStarted");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_SkipEnded, "Time.SkipEnded");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Phase_Dawn, "Time.Phase.Dawn");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Phase_Day, "Time.Phase.Day");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Phase_Dusk, "Time.Phase.Dusk");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Phase_Night, "Time.Phase.Night");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Season_Spring, "Time.Season.Spring");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Season_Summer, "Time.Season.Summer");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Season_Fall, "Time.Season.Fall");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_Season_Winter, "Time.Season.Winter");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_FailReason_WindowClosed, "Time.FailReason.WindowClosed");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_FailReason_NotCounted, "Time.FailReason.NotCounted");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_FailReason_InScene, "Time.FailReason.InScene");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_FailReason_SkipRunning, "Time.FailReason.SkipRunning");
+UE_DEFINE_GAMEPLAY_TAG(T_Time_FailReason_NotAuthority, "Time.FailReason.NotAuthority");
