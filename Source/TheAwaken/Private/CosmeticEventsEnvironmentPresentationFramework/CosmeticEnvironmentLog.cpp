@@ -1,0 +1,4 @@
+#include "CosmeticEventsEnvironmentPresentationFramework/CosmeticEnvironmentLog.h"
+
+DEFINE_LOG_CATEGORY(LogAwakenCosmetic);
+DEFINE_LOG_CATEGORY(LogAwakenEnvironment);

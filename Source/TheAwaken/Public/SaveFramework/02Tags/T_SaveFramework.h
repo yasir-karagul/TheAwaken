@@ -1,0 +1,31 @@
+#pragma once
+#include "NativeGameplayTags.h"
+
+// Messages (Doc R13 4.1)
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_Started);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_Completed);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_Failed);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_WorldOlderThanCharacter);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_CharacterFileRefused);   // host-only notice: a Character file was set aside
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Interaction_Save);
+
+// Refusal and failure reasons (PROPOSED family)
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_NotAuthority);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_NoActiveSlot);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_RestoreNotFinished);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_WriteFailed);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_ManifestInvalid);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_FileMissing);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_CorruptFile);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_ChecksumMismatch);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_SchemaTooNew);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_MigrationMissing);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_SlotUnreadable);   // Current and Backup both refused
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_NoIdentity);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_SaveInProgress);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_RestoreFailed);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_ParticipantNotRegistered);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_SnapshotTypeMissing);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_IoError);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_SlotNameInvalid);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Save_FailReason_SlotNotEmpty);   // beginNewWorld over a slot that has files

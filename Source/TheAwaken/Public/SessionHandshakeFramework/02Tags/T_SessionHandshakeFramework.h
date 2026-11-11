@@ -1,0 +1,15 @@
+#pragma once
+#include "CoreMinimal.h"
+#include "NativeGameplayTags.h"
+
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_JoinFailReason_OwnershipUnverified);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_JoinFailReason_VersionMismatch);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_JoinFailReason_Timeout);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_JoinFailReason_SessionFull);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_JoinFailReason_WrongPassword);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_JoinFailReason_Banned);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_JoinFailReason_NotFriend);
+
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_PeerJoinAccepted);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_PeerJoinRejected);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Session_PlayerIdentity_Replicated);   // PROPOSED, step 7 and Open items
