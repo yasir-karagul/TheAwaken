@@ -1,0 +1,10 @@
+# graphify scope: Source/ and Implementation Guide/ only (chosen 2026-11-12).
+/Plugins/
+/Frameworks/
+/Content/
+/Config/
+/.claude/
+/*.slnx
+/*.sln
+/CLAUDE.md
+/TheAwaken.png

@@ -202,7 +202,8 @@ void FInventorySlotSpec::Define(){
             FInventoryTestFixture fixture;
             TMap<FName, UDA_ItemDefinition*> items = loadContentCopies(fixture);
             TArray<FString> errors;
-            UDA_ItemDefinition* stone = items.FindRef(TEXT("Stone"));
+            // Rock: the ordinary bag material since Doc B07 made Stone a heavy carry item (B07 guide C2.3). It kept Stone's slot M2.
+            UDA_ItemDefinition* stone = items.FindRef(TEXT("Rock"));
             UDA_ItemDefinition* stick = items.FindRef(TEXT("Stick"));
             UDA_ItemDefinition* spoiled = items.FindRef(TEXT("SpoiledMeat"));
             UDA_ItemDefinition* spear = items.FindRef(TEXT("Spear"));
@@ -224,7 +225,7 @@ void FInventorySlotSpec::Define(){
 
             stone->inventorySlot.slotId = TEXT("M99");
             UBFL_InventoryValidation::validateCatalog(fixture.world(), errors);
-            TestTrue(TEXT("a deleted slot"), anyErrorContains(errors, TEXT("Stone: slot 'M99' does not exist in its layout")));
+            TestTrue(TEXT("a deleted slot"), anyErrorContains(errors, TEXT("Rock: slot 'M99' does not exist in its layout")));
             stone->inventorySlot = stoneSlot;
 
             FS_ConsumeEffect meter;

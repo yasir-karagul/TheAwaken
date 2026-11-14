@@ -36,6 +36,8 @@ struct FInventoryTestFixture{
     // Item definitions that exist only in this fixture's catalog.
     UDA_ItemDefinition* addStackable(FName itemId, int32 limit);
     UDA_ItemDefinition* addInstanced(FName itemId, int32 limit, float durability);
+    // A heavy item: it has a carry cost and never enters the bag (B07 3.1; B07 guide C2.4).
+    UDA_ItemDefinition* addHeavy(FName itemId, int32 carryCost, float throwDamage = 0.0f);
 
     // A player with a character id and an empty bag.
     AInventoryTestPlayerState* makePlayer();

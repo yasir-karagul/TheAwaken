@@ -9,18 +9,6 @@ bool UStubPlayerStateQuery::isIncapacitated_Implementation(APlayerState* player)
     return incapacitatedPlayers.Contains(player);
 }
 
-bool UStubCarryService::isCarryActive_Implementation(APlayerState* player){
-    return carryingPlayers.Contains(player);
-}
-
-bool UStubCarryService::beginCarry_Implementation(APlayerState* player, const FS_InventoryEntry& entry){
-    if(!acceptsNewCarry){
-        return false;
-    }
-    carriedEntries.Add(entry);
-    return true;
-}
-
 void UStubSurvivalService::modifyMeter_Implementation(APlayerState* player, FGameplayTag meterTag, float delta, FGameplayTag sourceTag){
     meterTotals.FindOrAdd(meterTag) += delta;
 }

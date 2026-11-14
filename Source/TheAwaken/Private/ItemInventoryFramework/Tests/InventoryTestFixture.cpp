@@ -8,6 +8,7 @@
 #include "ItemInventoryFramework/UInventoryData.h"
 #include "ItemInventoryFramework/UPlayerInventoryComponent.h"
 #include "ItemInventoryFramework/InventoryTime.h"
+#include "CarryEncumbranceFramework/02Tags/T_CarryEncumbranceFramework.h"
 #include "Engine/AssetManager.h"
 #include "Engine/Engine.h"
 #include "Misc/AutomationTest.h"
@@ -84,6 +85,14 @@ UDA_ItemDefinition* FInventoryTestFixture::addInstanced(FName itemId, int32 limi
     definition->perTypeLimit = limit;
     definition->durabilityMax = durability;
     catalog()->registerDefinition(definition);
+    return definition;
+}
+
+UDA_ItemDefinition* FInventoryTestFixture::addHeavy(FName itemId, int32 carryCost, float throwDamage){
+    UDA_ItemDefinition* definition = addStackable(itemId, 1);
+    definition->carryCapacityCost = carryCost;
+    definition->weightClassTag = T_Carry_WeightClass_Heavy;
+    definition->throwImpactDamage = throwDamage;
     return definition;
 }
 

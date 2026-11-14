@@ -118,7 +118,7 @@ void UInventoryRequestComponent::reply(const FS_InventoryResult& result, const T
 // ---------- S12.4 hotbar, hand, consumables, drop, pickup ----------
 
 void UInventoryRequestComponent::serverBindHotbarSlot_Implementation(int32 slotIndex, FName itemId){
-    const FGameplayTag blocked = gate(false, false);
+    const FGameplayTag blocked = gate(true, false);   // refused while carrying: it is not on the allowed list (B07 3.6, S4-F36; B07 guide C7.5)
     UPlayerInventoryComponent* inventory = UPlayerInventoryComponent::findFor(getOwnerPlayerState());
     if(blocked.IsValid() || inventory == nullptr){
         refuse(blocked.IsValid() ? blocked : T_Inventory_FailReason_NotFound.GetTag(), TEXT("bindHotbarSlot"));
@@ -128,7 +128,7 @@ void UInventoryRequestComponent::serverBindHotbarSlot_Implementation(int32 slotI
 }
 
 void UInventoryRequestComponent::serverSelectHotbarSlot_Implementation(int32 slotIndex){
-    const FGameplayTag blocked = gate(false, false);
+    const FGameplayTag blocked = gate(true, false);   // refused while carrying (B07 guide C7.5)
     UHeldItemComponent* heldItem = UHeldItemComponent::findFor(getOwnerPlayerState());
     if(blocked.IsValid() || heldItem == nullptr){
         refuse(blocked.IsValid() ? blocked : T_Inventory_FailReason_NotFound.GetTag(), TEXT("selectHotbarSlot"));
@@ -138,7 +138,7 @@ void UInventoryRequestComponent::serverSelectHotbarSlot_Implementation(int32 slo
 }
 
 void UInventoryRequestComponent::serverHoldFromBag_Implementation(const FS_ItemRef& ref){
-    const FGameplayTag blocked = gate(false, false);
+    const FGameplayTag blocked = gate(true, false);   // refused while carrying (B07 guide C7.5)
     UHeldItemComponent* heldItem = UHeldItemComponent::findFor(getOwnerPlayerState());
     if(blocked.IsValid() || heldItem == nullptr){
         refuse(blocked.IsValid() ? blocked : T_Inventory_FailReason_NotFound.GetTag(), TEXT("holdFromBag"));

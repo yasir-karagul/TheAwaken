@@ -107,6 +107,9 @@ bool UTimeSubsystem::devSimulateRegister(int32 playerIndex){
     return !result.IsValid();
 }
 
+// Named so that a unity build never merges this file's helpers with another file's anonymous namespace
+// (e.g. the console command objects and report() of the other cheat-command files).
+namespace TimeCheatCommands{
 namespace{
     UTimeSubsystem* timeOf(UWorld* world){
         return world ? world->GetSubsystem<UTimeSubsystem>() : nullptr;
@@ -189,6 +192,7 @@ namespace{
             }
             report(TEXT("Awaken.Time.SimulateRegister"), time->devSimulateRegister(FCString::Atoi(*args[0])));
         }));
+}
 }
 
 #endif

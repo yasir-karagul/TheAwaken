@@ -8,7 +8,6 @@
 # IDE files
 /.vs/
 /.idea/
-/*.sln
 *.suo
 *.user
 *.VC.db

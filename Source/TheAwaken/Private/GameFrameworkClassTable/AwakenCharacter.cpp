@@ -4,7 +4,7 @@
 #include "GameFrameworkClassTable/AwakenPlayerState.h"
 #include "ItemInventoryFramework/UHeldItemComponent.h"
 #include "CombatFramework/CombatComponent.h"
-#include "CarryEncumbranceFramework/CarryComponent.h"
+#include "CarryEncumbranceFramework/UCarryComponent.h"
 #include "CraftingFramework/CraftingComponent.h"
 #include "BuildingFramework/BuildToolComponent.h"
 #include "InteractionCoreFramework/InteractionComponent.h"
@@ -12,6 +12,8 @@
 #include "WeatherFramework/ShelterComponent.h"
 #include "CameraFramework/FirstPersonCameraComponent.h"
 #include "AbilitySystemComponent.h"
+#include "EnhancedInputComponent.h"
+#include "InputActionValue.h"
 #include "AbilityActionFramework/02Tags/T_AbilityActionFramework.h"
 
 AAwakenCharacter::AAwakenCharacter(const FObjectInitializer& objectInitializer)
@@ -89,5 +91,47 @@ void AAwakenCharacter::bindAbilitySystem(){
     abilitySystem->InitAbilityActorInfo(awakenState, this);
     if(HasAuthority()){
         awakenState->grantLoadoutOnce();   // A3 step 4: once per PlayerState, not once per pawn
+        // Doc B18 guide Step 9: server only. Runs again after every respawn, and bindAbilitySystem unbinds before it binds.
+        interaction->bindAbilitySystem(abilitySystem);
     }
+}
+
+void AAwakenCharacter::SetupPlayerInputComponent(UInputComponent* playerInputComponent){
+    Super::SetupPlayerInputComponent(playerInputComponent);
+    // Doc B18 guide Step 4: Unreal calls this on the locally controlled pawn only. The Interaction component binds IA_Interact
+    // and starts its focus timer. Camera look and movement binding belong to their own frameworks.
+    interaction->bindInput(playerInputComponent);
+
+    // TEMPORARY move and look (see the header). Triggered fires every frame while the key or mouse moves, which is what an axis needs.
+    UEnhancedInputComponent* input = Cast<UEnhancedInputComponent>(playerInputComponent);
+    if(input == nullptr){
+        return;
+    }
+    if(tempMoveAction != nullptr){
+        input->BindAction(tempMoveAction, ETriggerEvent::Triggered, this, &AAwakenCharacter::tempMove);
+    }
+    if(tempLookAction != nullptr){
+        input->BindAction(tempLookAction, ETriggerEvent::Triggered, this, &AAwakenCharacter::tempLook);
+    }
+}
+
+void AAwakenCharacter::tempMove(const FInputActionValue& value){
+    // x = right, y = forward, relative to where the player looks (yaw only).
+    const FVector2D axis = value.Get<FVector2D>();
+    const FRotationMatrix yaw(FRotator(0.0f, GetControlRotation().Yaw, 0.0f));
+    AddMovementInput(yaw.GetUnitAxis(EAxis::X), axis.Y);
+    AddMovementInput(yaw.GetUnitAxis(EAxis::Y), axis.X);
+}
+
+void AAwakenCharacter::tempLook(const FInputActionValue& value){
+    // Mouse up is positive Y; Unreal's positive pitch input looks down, so it is negated.
+    const FVector2D axis = value.Get<FVector2D>();
+    AddControllerYawInput(axis.X);
+    AddControllerPitchInput(-axis.Y);
+}
+
+void AAwakenCharacter::UnPossessed(){
+    // Doc B18 guide Step 4 and 11: stop focus, send a lost key release, end any hold and free the locks.
+    interaction->onUnpossessed();
+    Super::UnPossessed();
 }

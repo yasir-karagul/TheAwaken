@@ -36,19 +36,7 @@ public:
     virtual bool isIncapacitated_Implementation(APlayerState* player) override;
 };
 
-// TEMPORARY STUB — owner: Doc B07 Carry. A set of players marked as carrying; it accepts a heavy item only when told to.
-UCLASS()
-class UStubCarryService : public UObject, public IBPI_CarryService{
-    GENERATED_BODY()
-
-public:
-    TSet<TWeakObjectPtr<APlayerState>> carryingPlayers;
-    UPROPERTY() bool acceptsNewCarry = false;
-    UPROPERTY() TArray<FS_InventoryEntry> carriedEntries;
-
-    virtual bool isCarryActive_Implementation(APlayerState* player) override;
-    virtual bool beginCarry_Implementation(APlayerState* player, const FS_InventoryEntry& entry) override;
-};
+// IBPI_CarryService: no stub any more. Doc B07's UCarryServices is the real implementation (B07 guide C4.2).
 
 // TEMPORARY STUB — owner: Doc B03 Survival Tick. Adds up what each meter received.
 UCLASS()

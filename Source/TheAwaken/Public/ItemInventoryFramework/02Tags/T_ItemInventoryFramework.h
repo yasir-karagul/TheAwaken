@@ -6,6 +6,7 @@
 #include "AbilityActionFramework/02Tags/T_AbilityActionFramework.h"                                         // T_Action_Reload (Doc R04)
 #include "StatsFramework/02Tags/T_StatsFramework.h"                                                         // T_Stats_Source_Medicine (Doc R08)
 #include "CosmeticEventsEnvironmentPresentationFramework/02Tags/T_CosmeticEventsEnvironmentPresentationFramework.h"   // T_Cosmetic_Event_Interaction_ItemDropped (Doc B21)
+#include "InteractionCoreFramework/02Tags/T_InteractionCoreFramework.h"                                     // T_Interaction_FailReason_BagFull, HandsFull, NotAllowedInState (Doc B18)
 
 // ---- Messages (R01 §6; all three are in the Tag Registry) ----
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Inventory_Changed);
@@ -65,9 +66,7 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Inventory_FailReason_KitAlreadyGranted);    // 
 
 // ---- Tags OWNED BY OTHER FRAMEWORKS, used here (see the stub register, S13.8) ----
 // TEMPORARY duplicates: remove each definition when its owner's tag header exists, and include that header instead.
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Interaction_FailReason_BagFull);            // Doc B18 (approved, A94)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Interaction_FailReason_HandsFull);          // Doc B18
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Interaction_FailReason_NotAllowedInState);  // Doc B18
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_DamageType_Illness);                        // Doc R03
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(T_Survival_Meter_Illness);                    // Doc B03
-// T_Action_Reload (R04), T_Stats_Source_Medicine (R08) and T_Cosmetic_Event_Interaction_ItemDropped (B21) come from their owners' headers above.
+// T_Action_Reload (R04), T_Stats_Source_Medicine (R08), T_Cosmetic_Event_Interaction_ItemDropped (B21) and the three
+// T_Interaction_FailReason_* tags (B18) come from their owners' headers above.

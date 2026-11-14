@@ -22,7 +22,7 @@ void UInventoryServices::Initialize(FSubsystemCollectionBase& Collection){
     // One stub per seam. A real framework replaces its stub with registerSeam.
     registerSeam(UBPI_GameClock::StaticClass(), NewObject<UStubGameClock>(this));                  // Doc R12
     registerSeam(UBPI_PlayerStateQuery::StaticClass(), NewObject<UStubPlayerStateQuery>(this));    // Docs B02, R03, R11, R17
-    registerSeam(UBPI_CarryService::StaticClass(), NewObject<UStubCarryService>(this));            // Doc B07
+    // IBPI_CarryService: registered by Doc B07's UCarryServices (its stub was removed by the B07 guide, C4.2).
     registerSeam(UBPI_SurvivalService::StaticClass(), NewObject<UStubSurvivalService>(this));      // Doc B03
     registerSeam(UBPI_HealthService::StaticClass(), NewObject<UStubHealthService>(this));          // Docs R08, R03
     registerSeam(UBPI_ActionService::StaticClass(), NewObject<UStubActionService>(this));          // Doc R04

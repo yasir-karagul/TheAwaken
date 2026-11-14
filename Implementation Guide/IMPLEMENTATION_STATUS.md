@@ -89,3 +89,54 @@ Guide: `TheAwaken_DocR05_StepByStep_Implementation_Guide.md`
 
 ## Imported FAB assets
 None.
+
+---
+
+# Implementation Status — Doc B07 Carry & Encumbrance
+
+Guide: `TheAwaken_DocB07_StepByStep_Implementation_Guide.md` · Folder `CarryEncumbranceFramework` (the project's existing folder; the guide says `CarryFramework`)
+
+## Sections
+| Section | State |
+| --- | --- |
+| C0 Scaffolding | done — `LogAwakenCarry`, `UCarrySettings` (Project Settings → Game → Awaken Carry), `UCarryServices`. GameplayAbilities was already a dependency |
+| C1 Types, tags, seams | done — `IBPI_CarryableActor`, `IBPI_ThrowImpactSink` + stubs |
+| C2 Item data | done — `throwImpactDamage` field, IsDataValid carry checks, fixture `addHeavy`; content: Log, Stone, Trunk heavy; Rock created as the ordinary ingredient |
+| C3 Component core | done — replaces the TEMPORARY `CarryComponent.h/.cpp` (now `UCarryComponent.h/.cpp`); already on `AAwakenCharacter`, added to `AInventoryTestCharacter` |
+| C4 Begin a carry, R01 seam | done — `UCarryServices` is the real `IBPI_CarryService`; `UStubCarryService` and the `carrying` half of `StubFlag` deleted |
+| C5 End a carry, cost sourcing | done — `endCarry`, `consumeCarriedForCost`, `UBFL_Carry` |
+| C6 Throw pipeline | done — `AThrownItemActor`, `UBFL_Carry::throwEntry` |
+| C7 Interrupts, refusal list | done — `interruptCarry`, swim + pawn-removed safety nets; R01 hotbar patch (C7.5) |
+| C8 Actor carry | done — `beginCarryActor` |
+| C9 Networking | done (compiled) — `serverDropCarried` / `serverThrowCarried` through R01's gate; client-side rows not verified |
+| C10 Dev tools, tests | done except C10.7 (two-player) and the C2.3 skeleton sockets |
+
+## Deviations from the guide (forced by the existing project)
+- Folder/file names follow the project: `CarryEncumbranceFramework/`, `E_/S_/T_CarryEncumbranceFramework.*`; `FD_CarryChanged` lives in `S_CarryEncumbranceFramework.h` (UHT delegate-only-header fix, as R01/R05); `D_CarryEncumbranceFramework.h` just includes it.
+- Not redefined, owners' headers included: `Action.Dodge/Sprint/Block/Reload/WeaponCharge` (R04), `Cosmetic.Event.Carry.Picked/Dropped` (B21).
+- No `IBPI_CosmeticEventSink` exists: cosmetic events go through B21's `UCosmeticEventSubsystem` (as R05 did).
+- UE 5.8 has no `AddReplicatedLooseGameplayTag`: `Carry.State.Active` is set with `SetLooseGameplayTagCount(…, TagOnly)` (idempotent, replicated).
+- Dev-command / debug-view helpers are inside file-named namespaces (unity-build collision rule from the 2026-11-14 maintenance).
+- Stone is now heavy (guide C2.3); its bag-page slot moved to the new ordinary `Rock`. R01's `InventorySlotSpec` "slot data check" now uses Rock; R01's S5 grant test uses the real component instead of the deleted stub.
+- `AStubCarryableActor` shows a small cube (no collision) so `CarryDummy` is visible; `UStubThrowImpactSink.letItemLand` added for the "do not land" test.
+- Extra spec rows beyond the guide's six: defaults, seam registration, Downed refusal, SlotCount cvar, five actions cancelled once, spoil time kept through the hands, pawn-removed safety net, impact sink "do not land", carried actor destroyed.
+
+## Open / handoffs outside B07
+- C2.3: sockets `carry_01` / `carry_02` on the character skeleton not added (editor task; without them the mesh draws at the mesh root).
+- C10.6: no water volume added to `TestMap_Inventory` (swim net untested live).
+- C10.7 two-player check (listen server + client, late joiner, disconnect) NOT done.
+- Seams still stubbed: `IBPI_ThrowImpactSink` (R03), `IBPI_ActionService` (R04, from R01). One-line `interruptCarry` calls still to add by B02 (Downed/Death/Restrained), R07 (BeginSwim), R12 (Sleep), B20 (`handlePlayerLeft`).
+- Input (R04/B17): drop/throw keys not mapped to `serverDropCarried(-1)` / `serverThrowCarried(-1, cameraForward)`.
+
+## Build / test log
+- C0–C10: Editor Development build clean, no new warnings.
+- Automation `Awaken.Carry` 10/10, `Awaken.Inventory` 36/36, `Awaken.Equipment` 12/12 (58 total).
+- Offline standalone `-game` on TestMap_Inventory: Give Log 3 (2 carried, 1 loose), Drop, Throw (landed as a loose log), FillHands → HandsFull, Interrupt Downed (2 dropped at the feet), Give Trunk (both slots), Drop, CarryDummy → Throw refused CannotThrow → Drop, Give Stick (bag), `Awaken.Item.Validate` 0 errors — all verified from the log.
+
+---
+
+## Maintenance — 2026-11-14 (project failed to build on open; Rider showed 58 issues)
+- **Build failure, cause 1 (code):** a unity-build name collision. `TimeCheatCommands.cpp`, `WeatherCheatCommands.cpp` and `EquipmentDevCommands.cpp` each define `report` / `cmdSet` / `cmdDump` / `dumpCommand` in an anonymous namespace; when UBT's adaptive unity build regrouped files they landed in one translation unit (C2084/C2374). Fix: each file's anonymous namespace is nested in a file-named namespace. Verified by compiling the whole module as a single unity file (`-StressTestUnity -DisableAdaptiveUnity`).
+- **Build failure, cause 2 (environment):** the machine runs out of commit memory (16 GB RAM + ~11 GB page file) with Unreal Editor + Rider open; UBA reports "Failed to create shared memory" and Windows killed `cl.exe` (low-virtual-memory event). Not a code issue; enlarging the page file is recommended (user action).
+- **Rider "Toolset, Environment" (58 × MSB4236):** Visual Studio Community 2026 lacked its .NET SDK component, so its MSBuild had no .NET SDK resolver and the engine's C# programs could not load. Fixed by adding `Microsoft.NetCore.Component.SDK` with the VS Installer; the solution now loads 60/60 projects. Remaining 3 items are NuGet vulnerability notices in Epic's engine tool programs (not game code).
+- **Tests:** `Awaken.Inventory` 36/36 and `Awaken.Equipment` 12/12 pass; live standalone run on TestMap_Inventory exercising both systems is clean.
