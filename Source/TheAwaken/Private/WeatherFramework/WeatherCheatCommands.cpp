@@ -8,6 +8,9 @@
 #include "Engine/World.h"
 #include "HAL/IConsoleManager.h"
 
+// Named so that a unity build never merges this file's helpers with another file's anonymous namespace
+// (e.g. the console command objects and report() of the other cheat-command files).
+namespace WeatherCheatCommands{
 namespace{
     UWeatherSubsystem* weatherOf(UWorld* world){
         return world ? world->GetSubsystem<UWeatherSubsystem>() : nullptr;
@@ -38,6 +41,7 @@ namespace{
                 weather->devDump();
             }
         }));
+}
 }
 
 #endif

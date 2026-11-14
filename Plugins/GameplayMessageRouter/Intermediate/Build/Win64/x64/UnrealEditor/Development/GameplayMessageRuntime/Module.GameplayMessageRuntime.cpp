@@ -2,3 +2,6 @@
 #include "C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/UnrealEditor/Inc/GameplayMessageRuntime/UHT/GameplayMessageRuntime.init.gen.cpp"
 #include "C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/UnrealEditor/Inc/GameplayMessageRuntime/UHT/GameplayMessageTypes2.gen.cpp"
 #include "C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayMessageRuntime/PerModuleInline.gen.cpp"
+#include "C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Source/GameplayMessageRuntime/Private/GameFramework/AsyncAction_ListenForGameplayMessage.cpp"
+#include "C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Source/GameplayMessageRuntime/Private/GameFramework/GameplayMessageRuntime.cpp"
+#include "C:/Unreal Projects/TheAwaken/Plugins/GameplayMessageRouter/Source/GameplayMessageRuntime/Private/GameFramework/GameplayMessageSubsystem.cpp"

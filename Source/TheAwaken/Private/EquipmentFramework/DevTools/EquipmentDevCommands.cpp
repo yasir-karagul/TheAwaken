@@ -13,6 +13,9 @@
 #include "ItemInventoryFramework/UPlayerInventoryComponent.h"
 #include "ItemInventoryFramework/UInventoryData.h"
 
+// Named so that a unity build never merges this file's helpers with another file's anonymous namespace
+// (e.g. the console command objects and report() of the other cheat-command files).
+namespace EquipmentDevCommands{
 namespace{
     bool isPlayerArgument(const FString& argument){
         return argument.Len() > 1 && argument.StartsWith(TEXT("p"), ESearchCase::CaseSensitive) && argument.Mid(1).IsNumeric();
@@ -172,6 +175,7 @@ namespace{
     FAutoConsoleCommandWithWorldAndArgs cmdHit(TEXT("Awaken.Equipment.Hit"), TEXT("<damage> [penetration] [pN]: run the reference armor step on the player's gear (health is not changed)"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&hitCommand));
     FAutoConsoleCommandWithWorldAndArgs cmdWear(TEXT("Awaken.Equipment.Wear"), TEXT("<clothesItemId> [pN]: put on clothes from the bag"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&wearCommand));
     FAutoConsoleCommandWithWorldAndArgs cmdDump(TEXT("Awaken.Equipment.Dump"), TEXT(": print every player's worn armor and clothes as this machine sees them (read)"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&dumpCommand));
+}
 }
 
 #endif

@@ -257,19 +257,19 @@ namespace InventoryDev{
         INVENTORY_LOG(Log, world, "Stub clock is now at %lld game seconds", clock->gameTime);
     }
 
-    // Awaken.Inventory.StubFlag <carrying|downed> <0|1> [pN]. Owners: Doc B07 and Docs B02, R03.
+    // Awaken.Inventory.StubFlag downed <0|1> [pN]. Owners: Docs B02, R03. The "carrying" half was removed with
+    // UStubCarryService (B07 guide C4.2): to make a player carry, use Awaken.Carry.Give.
     void stubFlag(const TArray<FString>& arguments, UWorld* world){
         APlayerState* player = findPlayer(world, arguments);
         const TArray<FString> plain = plainArgs(arguments);
         const UInventoryServices* services = UInventoryServices::get(world);
-        if(player == nullptr || services == nullptr || plain.Num() < 2){
-            INVENTORY_LOG(Warning, world, "Usage: Awaken.Inventory.StubFlag <carrying|downed> <0|1> [pN]");
+        if(player == nullptr || services == nullptr || plain.Num() < 2 || plain[0] != TEXT("downed")){
+            INVENTORY_LOG(Warning, world, "Usage: Awaken.Inventory.StubFlag downed <0|1> [pN] (to carry, use Awaken.Carry.Give)");
             return;
         }
         const bool isOn = FCString::Atoi(*plain[1]) != 0;
-        UStubCarryService* carry = Cast<UStubCarryService>(services->getSeam(UBPI_CarryService::StaticClass()));
         UStubPlayerStateQuery* state = Cast<UStubPlayerStateQuery>(services->getSeam(UBPI_PlayerStateQuery::StaticClass()));
-        TSet<TWeakObjectPtr<APlayerState>>* flagged = plain[0] == TEXT("carrying") ? (carry != nullptr ? &carry->carryingPlayers : nullptr) : (state != nullptr ? &state->incapacitatedPlayers : nullptr);
+        TSet<TWeakObjectPtr<APlayerState>>* flagged = state != nullptr ? &state->incapacitatedPlayers : nullptr;
         if(flagged == nullptr){
             INVENTORY_LOG(Log, world, "StubFlag: that stub is no longer registered");
             return;
@@ -354,7 +354,7 @@ namespace InventoryDev{
     FAutoConsoleCommandWithWorldAndArgs cmdBind(TEXT("Awaken.Hotbar.Bind"), TEXT("<slot> <itemId|none> [pN]: bind a hotbar slot"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&bindSlot));
     FAutoConsoleCommandWithWorldAndArgs cmdSelect(TEXT("Awaken.Hotbar.Select"), TEXT("<slot> [pN]: take what the slot resolves to in the hand"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&selectSlot));
     FAutoConsoleCommandWithWorldAndArgs cmdStubClock(TEXT("Awaken.Inventory.StubClock"), TEXT("<hours>: TEMPORARY, move the stub game clock forward"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&stubClock));
-    FAutoConsoleCommandWithWorldAndArgs cmdStubFlag(TEXT("Awaken.Inventory.StubFlag"), TEXT("<carrying|downed> <0|1> [pN]: TEMPORARY, set a stub player state"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&stubFlag));
+    FAutoConsoleCommandWithWorldAndArgs cmdStubFlag(TEXT("Awaken.Inventory.StubFlag"), TEXT("downed <0|1> [pN]: TEMPORARY, set a stub player state"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&stubFlag));
     FAutoConsoleCommandWithWorldAndArgs cmdStubSave(TEXT("Awaken.Inventory.StubSave"), TEXT(": TEMPORARY, keep every inventory save snapshot (Doc R13 interface) in memory"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&stubSave));
     FAutoConsoleCommandWithWorldAndArgs cmdStubLoad(TEXT("Awaken.Inventory.StubLoad"), TEXT(": TEMPORARY, restore the snapshots kept by StubSave"), FConsoleCommandWithWorldAndArgsDelegate::CreateStatic(&stubLoad));
 }

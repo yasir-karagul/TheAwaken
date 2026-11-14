@@ -46,6 +46,9 @@ public:
     // 0 = an ordinary item. Above 0 = a heavy item: it fills that many carry slots and NEVER enters the bag (R01 3.7 step 0).
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Carry", meta = (ClampMin = "0")) int32 carryCapacityCost = 0;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Carry", meta = (Categories = "Carry.WeightClass")) FGameplayTag weightClassTag;
+    // Damage of this item when it is thrown and hits something (B07 3.4: "a heavy blunt impact"). PROPOSED name.
+    // For a Thrown WEAPON Doc R03 passes the weapon's own damage instead and ignores this field (R03 3.2).
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Carry", meta = (ClampMin = "0")) float throwImpactDamage = 0.0f;
     // 'Use directly' versus 'must be cooked, dried or boiled first'.
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Processing") bool requiresProcessing = false;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Processing") FName linkedProcessingRecipe;

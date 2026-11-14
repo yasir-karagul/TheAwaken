@@ -2,6 +2,8 @@
 #include "ItemInventoryFramework/UInventorySettings.h"
 #if WITH_EDITOR
 #include "Misc/DataValidation.h"
+#include "CarryEncumbranceFramework/UCarrySettings.h"
+#include "CarryEncumbranceFramework/02Tags/T_CarryEncumbranceFramework.h"
 #endif
 
 FPrimaryAssetId UDA_ItemDefinition::GetPrimaryAssetId() const{
@@ -113,6 +115,32 @@ EDataValidationResult UDA_ItemDefinition::IsDataValid(FDataValidationContext& Co
         }
         if(durabilityMax != 0.0f){
             fail(TEXT("Clothes never wear out (R05 3.6): durabilityMax must be 0."));
+        }
+    }
+
+    // ---- Carry (Doc B07 guide C2.2) ----
+    if(isHeavy()){
+        if(weightClassTag != T_Carry_WeightClass_Heavy){
+            fail(TEXT("An item with a carry cost must have weightClassTag = Carry.WeightClass.Heavy (B07 §6)."));
+        }
+        if(isPermanent()){
+            fail(TEXT("The permanent Axe and the map are never carry items (B07 amendment A92, R01 3.10): carryCapacityCost must be 0."));
+        }
+        if(isPortableContainer()){
+            fail(TEXT("A Portable Container cannot be a heavy item: a carried item is dropped loose, and a container that holds something can never be loose (R01 3.4a)."));
+        }
+        if(carryCapacityCost > UCarrySettings::get()->carrySlotCount){
+            Context.AddWarning(FText::FromString(FString::Printf(TEXT("carryCapacityCost is %d but there are only %d carry slots: this item can never be picked up (B07 3.1)."), carryCapacityCost, UCarrySettings::get()->carrySlotCount)));
+        }
+        if(worldMesh.IsNull()){
+            Context.AddWarning(FText::FromString(TEXT("A heavy item has no worldMesh, so nothing shows in the hands or on the ground.")));
+        }
+    }else{
+        if(weightClassTag.IsValid() && weightClassTag != T_Carry_WeightClass_Light){
+            fail(TEXT("An item with no carry cost is Carry.WeightClass.Light, or has no weight class at all (B07 §6)."));
+        }
+        if(throwImpactDamage > 0.0f && !isWeapon()){
+            Context.AddWarning(FText::FromString(TEXT("throwImpactDamage is set on an item that is neither heavy nor a weapon. It is used only if something throws this item.")));
         }
     }
     return result;

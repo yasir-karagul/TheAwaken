@@ -90,8 +90,7 @@ namespace InventorySectionSpecHelpers{
         fixture.addStackable(TEXT("Bullet"), 40);
         fixture.addStackable(TEXT("Stick"), 20);
         fixture.addStackable(TEXT("Stone"), 20);
-        UDA_ItemDefinition* log = fixture.addStackable(TEXT("Log"), 1);
-        log->carryCapacityCost = 1;
+        fixture.addHeavy(TEXT("Log"), 1);
         UDA_ItemDefinition* meat = fixture.addStackable(TEXT("RawMeat"), 10);
         meat->categoryTag = T_Item_Category_Food;
         meat->canSpoil = true;
@@ -193,7 +192,6 @@ void FInventorySectionSpec::Define(){
             addCatalog(fixture);
             AInventoryTestPlayerState* player = fixture.makePlayer();
             UStubLooseItemSpawner* spawner = fixture.stub<UStubLooseItemSpawner, UBPI_LooseItemSpawner>();
-            UStubCarryService* carry = fixture.stub<UStubCarryService, UBPI_CarryService>();
 
             const FS_GrantResult spears = UBFL_Inventory::grantOrDrop(player, stackOf(TEXT("Spear"), 6));
             TestEqual(TEXT("4 spears stored"), spears.quantityStored, 4);
@@ -202,9 +200,10 @@ void FInventorySectionSpec::Define(){
                 && spawner->spawnedEntries[0].instanceId != spawner->spawnedEntries[1].instanceId && spawner->spawnedEntries[0].state.durability == 50.0f);
 
             const FS_GrantResult logs = UBFL_Inventory::grantOrDrop(player, stackOf(TEXT("Log"), 2));
+            // No pawn yet, so no carry component: the real carry seam (Doc B07) refuses and the logs land loose.
             TestTrue(TEXT("heavy, carry refusing: dropped 2, carried 0"), logs.quantityDropped == 2 && logs.quantityCarried == 0);
             TestEqual(TEXT("the bag holds no log"), UPlayerInventoryComponent::findFor(player)->getAvailableQuantity(TEXT("Log")), 0);
-            carry->acceptsNewCarry = true;
+            fixture.makeCharacterFor(player);   // two free carry slots now
             const FS_GrantResult carried = UBFL_Inventory::grantOrDrop(player, stackOf(TEXT("Log"), 2));
             TestTrue(TEXT("carry accepting: carried 2, dropped 0"), carried.quantityCarried == 2 && carried.quantityDropped == 0);
 

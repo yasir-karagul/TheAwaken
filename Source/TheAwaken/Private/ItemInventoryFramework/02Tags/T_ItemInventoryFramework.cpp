@@ -50,8 +50,5 @@ UE_DEFINE_GAMEPLAY_TAG(T_Inventory_FailReason_BagCreateFailed, "Inventory.FailRe
 UE_DEFINE_GAMEPLAY_TAG(T_Inventory_FailReason_GearReleaseFailed, "Inventory.FailReason.GearReleaseFailed");
 UE_DEFINE_GAMEPLAY_TAG(T_Inventory_FailReason_KitAlreadyGranted, "Inventory.FailReason.KitAlreadyGranted");
 
-UE_DEFINE_GAMEPLAY_TAG(T_Interaction_FailReason_BagFull, "Interaction.FailReason.BagFull");
-UE_DEFINE_GAMEPLAY_TAG(T_Interaction_FailReason_HandsFull, "Interaction.FailReason.HandsFull");
-UE_DEFINE_GAMEPLAY_TAG(T_Interaction_FailReason_NotAllowedInState, "Interaction.FailReason.NotAllowedInState");
 UE_DEFINE_GAMEPLAY_TAG(T_DamageType_Illness, "DamageType.Illness");
 UE_DEFINE_GAMEPLAY_TAG(T_Survival_Meter_Illness, "Survival.Meter.Illness");
