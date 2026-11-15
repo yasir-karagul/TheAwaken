@@ -6,6 +6,7 @@
 #include "AInventoryTestCharacter.generated.h"
 
 class UCarryComponent;
+class UCraftingComponent;
 class UHeldItemComponent;
 
 UCLASS()
@@ -18,4 +19,6 @@ public:
     UPROPERTY(VisibleAnywhere) TObjectPtr<UHeldItemComponent> heldItemComponent;
     // Doc B07 guide C3.8. The real Character (AAwakenCharacter) carries the same component.
     UPROPERTY(VisibleAnywhere) TObjectPtr<UCarryComponent> carryComponent;
+    // Doc R02 guide CR5.7. The real Character (AAwakenCharacter) carries the same component.
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UCraftingComponent> craftingComponent;
 };

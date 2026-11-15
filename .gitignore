@@ -19,3 +19,6 @@
 *.log
 Thumbs.db
 Desktop.ini
+
+# graphify knowledge-graph output (generated, rebuilt locally)
+/graphify-out/

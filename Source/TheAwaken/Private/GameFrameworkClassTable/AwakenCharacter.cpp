@@ -5,7 +5,7 @@
 #include "ItemInventoryFramework/UHeldItemComponent.h"
 #include "CombatFramework/CombatComponent.h"
 #include "CarryEncumbranceFramework/UCarryComponent.h"
-#include "CraftingFramework/CraftingComponent.h"
+#include "CraftingFramework/UCraftingComponent.h"
 #include "BuildingFramework/BuildToolComponent.h"
 #include "InteractionCoreFramework/InteractionComponent.h"
 #include "CheckpointRespawnFramework/DownedComponent.h"
