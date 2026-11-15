@@ -135,6 +135,53 @@ Guide: `TheAwaken_DocB07_StepByStep_Implementation_Guide.md` · Folder `CarryEnc
 
 ---
 
+# Implementation Status — Doc R02 Crafting
+
+Guide: `TheAwaken_DocR02_StepByStep_Implementation_Guide.md` · Folder `CraftingFramework`
+
+## Sections
+| Section | State |
+| --- | --- |
+| CR0 Scaffolding | done — `LogAwakenCrafting`, `UCraftingSettings` (Project Settings → Game → Awaken Crafting), `UCraftingServices` |
+| CR1 Types, tags, seam | done — `IBPI_ProgressionQuery`; default is the real R06 bridge (see deviations) |
+| CR2 Recipe data, catalog, data check | done — `UDA_CraftingRecipe`, `UCraftingRecipeSubsystem`, `UBFL_CraftingValidation`; `Recipe` asset type in DefaultGame.ini; content: 4 recipes in `/Game/Awaken/Recipes`, new items `Hatchling` (Materials slot M4) and `StoneSpear` (new Weapons slot W9); `Awaken.Craft.Validate` 0 errors |
+| CR3 Craft button list | done — `UBFL_Crafting::evaluateRecipe` / `buildRecipeList` |
+| CR4 Station component | done — `UCraftingStationComponent`, `AStubCraftingStation` |
+| CR5 Crafting component, session, staging | done — replaces the TEMPORARY `CraftingComponent.h/.cpp` (now `UCraftingComponent.h/.cpp`); already on `AAwakenCharacter`, added to `AInventoryTestCharacter` (CR5.7) |
+| CR6 Request / complete a craft | done |
+| CR7 Ending a session | done — pawn and station `EndPlay` safety nets, `UBFL_Crafting::closeSession` / `handlePlayerLeft` |
+| CR8 Networking | done (compiled) — five server requests through R01's gate; client-side rows not verified |
+| CR9 Dev tools, tests | done except CR9.7 (two-player) |
+
+## Deviations from the guide (forced by the existing project)
+- Doc R06 Progression exists: `UCraftingServices` registers `UCraftingProgressionBridge` (asks `UProgressionComponent` on the GameState) instead of the stub. `UStubProgressionQuery` stays for tests; `Awaken.Craft.StubUnlock` switches the local machine to the stub (for TestMap_Inventory, whose GameState has no Progression component) and logs a warning.
+- Not redefined, owners' headers included: `Interaction.FailReason.InUse` (B18), `Cosmetic.Event.Craft.Started/Finished` (B21). `Station.CraftingTable` / `Station.Forge` are still TEMPORARY duplicates here (no B01/B10 tag header declares them).
+- No `IBPI_CosmeticEventSink` exists: cosmetic events go through B21's `UCosmeticEventSubsystem` (as R05/B07).
+- B18's `UInteractionLockComponent` exists: if a station's actor also carries one, `tryLock` / `release` mirror the hold into it (holder = the Character, as B18 uses).
+- `FD_CraftingChanged` lives in `S_CraftingFramework.h` (UHT delegate-only-header fix); `D_CraftingFramework.h` just includes it.
+- `UCraftingComponent::EndPlay` only stops the timer on `EndPlayInEditor` / `Quit` (world teardown) instead of running the full close; destroy / removal still closes with `PawnRemoved`.
+- Dev-command and debug-view helpers are in file-named namespaces (unity-build rule).
+- Content: `Hatchling` duplicated from Stick (stackable material), `StoneSpear` from Spear (weapon). StoneSpear needed a 200×100 slot; none was free on the Weapons page, so slot W9 was added to `DA_Page_Weapons`. `Progression.Recipe.StoneSpear` added to DefaultGameplayTags.ini (owner R06).
+- Extra spec rows beyond the guide's ten: Defaults (Section 1), Station lifecycle (id kept, forceRelease OutOfRange, pawn removed), Bag refused (NotFound, InsufficientStaged, BagRequired).
+
+## Open / handoffs outside R02
+- CR9.7 two-player check (listen server + client, refusals told only to the requester, disconnect frees the station) NOT done.
+- One-line `closeSession` calls still to add by B02 (Downed / Died before `detachBag`), R17 (SceneStarted), B20 (`handlePlayerLeft` before R01's), B18 (`forceRelease(OutOfRange)` on lock release).
+- B18 should replace `serverUseStation` + `stationUseRange` with its own interaction calling `enterStation`.
+- B01: no Crafting Table / Forge piece carries `UCraftingStationComponent` yet; B17: no bag screen calls the five requests.
+- R07: no montage behind `animationTag`; `craftSeconds` (K2) is the only crafting time.
+- Appendix C open points (K2, K5, K7, K13, K14, K16, heavy / multi-copy outputs) not confirmed with the designer.
+
+## Build / test log
+- CR0–CR9: Editor Development build clean, no compiler warnings.
+- Automation `Awaken.Crafting` 13/13, `Awaken.Inventory` 36/36, `Awaken.Equipment` 12/12, `Awaken.Carry` 10/10 (71 total). (First run: R01's slot data check failed on StoneSpear's too-small slot; fixed by slot W9.)
+- Offline standalone `-game` on TestMap_Inventory, verified from the log: catalog 4 recipes, Validate 0 errors; stage sticks (3 red) → rocks (Arrow/Hatchling/Spear green) → Craft Spear started, second press and a stage refused CraftInProgress, spear granted after 1.5 s; StageAll with spears → 3 white, Craft Hatchling refused ExtraIngredients, Close returned 3 types; SpawnStation CraftingTable entered, StoneSpear refused BlueprintLocked, after StubUnlock listed green, crafted after 2 s.
+
+## Imported FAB assets
+None. The stub station shows the engine cube.
+
+---
+
 ## Maintenance — 2026-11-14 (project failed to build on open; Rider showed 58 issues)
 - **Build failure, cause 1 (code):** a unity-build name collision. `TimeCheatCommands.cpp`, `WeatherCheatCommands.cpp` and `EquipmentDevCommands.cpp` each define `report` / `cmdSet` / `cmdDump` / `dumpCommand` in an anonymous namespace; when UBT's adaptive unity build regrouped files they landed in one translation unit (C2084/C2374). Fix: each file's anonymous namespace is nested in a file-named namespace. Verified by compiling the whole module as a single unity file (`-StressTestUnity -DisableAdaptiveUnity`).
 - **Build failure, cause 2 (environment):** the machine runs out of commit memory (16 GB RAM + ~11 GB page file) with Unreal Editor + Rider open; UBA reports "Failed to create shared memory" and Windows killed `cl.exe` (low-virtual-memory event). Not a code issue; enlarging the page file is recommended (user action).
